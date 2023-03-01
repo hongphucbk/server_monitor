@@ -8,8 +8,8 @@ const socket = new net.Socket();
 
 const moment = require('moment');
 
-const HOST = 'core.ziot.vn';
-const PORT = 5003; // Telnet port number
+//const HOST = 'core.ziot.vn';
+//const PORT = 5003; // Telnet port number
 
 //Send Line
 // get accessToken and channelSecret from LINE developers website
@@ -25,7 +25,7 @@ setInterval(async function(){
 checkMongoDb()
 
 async function checkMongoDb() {
-  socket.connect(PORT, HOST, () => {
+  socket.connect(process.env.PORT, process.env.HOST, () => {
     //console.log(`Connected to ${HOST}:${PORT}`);
     // process.stdin.on('data', (data) => {
     //   socket.write(data);
@@ -45,7 +45,7 @@ socket.on('error', () => {
   console.log("U Error");
   socket.destroy();
 
-  let strData="Server MongoDb down - " + HOST + " " + PORT +   " " +  moment(new Date()).format("YYYY-MM-DD HH:mm:ss") + '\n'
+  let strData="Server MongoDb down - " + process.env.HOST + " " + process.env.PORT +   " " +  moment(new Date()).format("YYYY-MM-DD HH:mm:ss") + '\n'
 
   client.push(process.env.CHANEL_ID, [
     {
